@@ -21,13 +21,17 @@ void setup() {
    Serial.println("OK");
 
     // Set volume to maximum (0 to 30).
-    player.volume(30);
+    player.volume(20);
     // Play the first MP3 file on the SD card
-    player.play(1);
+    player.play(2);
+    delay(5000);
+    player.next();
   } else {
     Serial.println("Connecting to DFPlayer Mini failed!");
   }
 }
 
 void loop() {
+  delay(5000);
+  player.next();
 }
