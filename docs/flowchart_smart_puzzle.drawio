@@ -1,1 +1,127 @@
-<mxfile host="Electron" modified="2022-10-02T03:22:57.367Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/19.0.3 Chrome/102.0.5005.63 Electron/19.0.3 Safari/537.36" etag="vbjfCvimaohaAfjq_dXz" version="19.0.3" type="device"><diagram id="VdiAd6TwgRln_6Kye7vl" name="pilih level">7Vvbcps6FP0aP6aDuBj7MXVu00k6mXF7Wp83YWSjGpBHiNjk648wwlyECfWpLZhpXixtJCQt1r5CRsYs2D9SuPVeiIv8ka65+5FxN9J1oBkT/pNKkkwyNkEmWFPsikGFYI7fUT5TSGPsoqgykBHiM7ytCpckDNGSVWSQUrKrDlsRv7rqFq6RJJgvoS9Lf2CXeZl0otuF/AnhtZevDMbT7EoA88HiJJEHXbIriYz7kTGjhLCsFexnyE/By3HJ5j2cuHrcGEUh6zJhsn7eJ3ezycvzlxCjlW9ps8cb8XTeoB+LA4vNsiRHALkcENEllHlkTULo3xfSz5TEoYvSZTTeK8Y8E7LlQsCFvxBjiXi6MGaEizwW+OKqfBRxuojEdIla9i+2yyBdI9YyTjyu9CylBQRQj4gEiNGED6DIhwy/VR8+FBxaH8cVMPOGQPo3UNcl1F9iH2IJ+gLYFKWdhxmab+EBkB1Xt44gviHK0L712OKqYZnZFKGsYCq4uyuoD3I+eyXaj7ULIWVJSC3gsBhqdmSo3iuGmhLuc+SjKOXo2OfH+OxQ3lqnLRdTuMG89SDz1yOBE0fX4a5d5a4tU3fSwNzJpZg7lhD8hl24UUFetMfsZ6m9SG/1yRK9u72486GT5J2Qg/CzGJh2F+VrxbRDL593eUUxOyqK4MWN9sngf9mkzspzuN0tpTApDdgSHLKotNprKiiWMmsUBKDmkT8Yb34wHLQN541sv7XJ+ebJahVxXOu0PgJ2PtPzUG2wQYTdkXnTXploW0L9dmTcpufly/Pok7ccRD0Y4fRWAcqs9OkQQ1MSYujXDDH+mX+PZrH2dP+0XUHAHjbOD+cGSDgOi73TjuwFoFf0nUqwzxD3jpqP3pB/w4MLGKTsO4QYctABA+dAax87FB52fZjXO3ob16R3qP+Lvr0ye/FVpxMt3Nnhl8WNMbyIoxJvFOFHa8RRY/V5qpSrSFmXGkFVqjlAtljC8r8iyp0+9NLjx+/v/FnyBucudwe90wxTueGXc0umKkLvRNnGQzQUQBrHdY2a/ziFG3cjl52S/qb1/wt3ZYWntl2XcH8VdqLuYB0UQtq3nN5qsBmXSuob8RurdKaFAz0m4mrS9+YwetJRI5QVupq3LcehwzJEDWWT1ufTE9zlAqOIYRIYrvnPBgZxmrbCKN5sYJgiAf00suHLaUviwGKoD3GoPLzRNa1iqsaa6vBGH1Bi2+Y6PzYoWq+YfbIuMz/WZQS5Mx+rmrn1wNw2VDMX2H/d7ClsGqo9A/CyspNtyVgdLtvELGxICa6tG5ZZs+pAuW7IjnOAWSvomj4pK7k3b1t+qacmb222VaCbrQLn1Ncu+pSB1a/HLKfJEQpiWDZSkXgdrjhDtkyrYqAmmiUbKNBgoI7CPx93yhZqYMbJ6upjjX7RVi5ono48Sy8GwyTjskizakzvWXQ6VR+dysVLju72kK0imoUy0K0YC4ZohJxY/dvXejijPklVYhuu/3rqrBKz1tV99ivYz/ddUpBnoSAe/gXjPitI3dxMlJsbXY45h+VOcy/5sTvtVxSY77uBxjtIQyh+cf99JtDUs1iOTY4flJ5E6zofPQNbU4hW4+cFSp3iWTnlWfWv3/1m4/SnGF0LYlewJW2bLLH/awKz9xaag+mlXaKkDA1Qn04x9ap+XPLDDd4t/iEm+z61+Lci4/4/</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-10-02T05:04:18.399Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.53" etag="cHnKS-rV43c-K-GC-3SD" version="20.4.0" type="github" pages="2">
+  <diagram id="VdiAd6TwgRln_6Kye7vl" name="pilih level">
+    <mxGraphModel dx="867" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8gLxyDC8MLJniefl50CG-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="8gLxyDC8MLJniefl50CG-2" target="8gLxyDC8MLJniefl50CG-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-2" value="&quot;Selamat Puzzle telah selesai dirakit&quot;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-5" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="8gLxyDC8MLJniefl50CG-4" target="8gLxyDC8MLJniefl50CG-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-4" value="Selesai&lt;br&gt;dirakit?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="374" y="70" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-6" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8gLxyDC8MLJniefl50CG-4" target="8gLxyDC8MLJniefl50CG-4" edge="1">
+          <mxGeometry x="-0.3333" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="474" y="110" />
+              <mxPoint x="474" y="40" />
+              <mxPoint x="414" y="40" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="8gLxyDC8MLJniefl50CG-7" target="8gLxyDC8MLJniefl50CG-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-7" value="&quot;Memulai permainan&quot;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="8gLxyDC8MLJniefl50CG-9" target="8gLxyDC8MLJniefl50CG-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-9" value="Cek level-&amp;gt;&lt;br&gt;ambil library level" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n2ZeTPt7YN2r80nw7nJY-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="8gLxyDC8MLJniefl50CG-11" target="n2ZeTPt7YN2r80nw7nJY-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8gLxyDC8MLJniefl50CG-11" value="A: Perintah puzzle pertama" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-5" value="tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-2" target="VSUsCu0HEHpfa1tFkbWb-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-8" value="ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-2" target="VSUsCu0HEHpfa1tFkbWb-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-2" value="Puzzle&lt;br&gt;benar?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="374" y="590" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-18" target="VSUsCu0HEHpfa1tFkbWb-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-4" target="VSUsCu0HEHpfa1tFkbWb-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-4" value="&quot;yang kamu masukan huruf D coba masukan huruf A yang benar ya&quot;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="600" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-7" target="VSUsCu0HEHpfa1tFkbWb-20" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-7" value="A: Selamat kamu benar" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="730" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-9" target="VSUsCu0HEHpfa1tFkbWb-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-9" value="A: Perintah puzzle berikutnya" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="610" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-14" value="tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-12" target="VSUsCu0HEHpfa1tFkbWb-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-16" value="ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-12" target="VSUsCu0HEHpfa1tFkbWb-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-12" value="semua puzzle selesai?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="545" y="805" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-15" target="VSUsCu0HEHpfa1tFkbWb-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-15" value="A: Selamat kamu berhasil menyelesaikan semua puzzle" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-18" value="lampu merah pada puzzle tersebut" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="600" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-20" target="VSUsCu0HEHpfa1tFkbWb-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-20" value="Lampu hijau pada puzzle tersebut" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="830" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="VSUsCu0HEHpfa1tFkbWb-23" target="VSUsCu0HEHpfa1tFkbWb-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-23" value="Lampu warna warni semua puzzle" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="1030" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="VSUsCu0HEHpfa1tFkbWb-25" value="Selesai" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="170" y="1030" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n2ZeTPt7YN2r80nw7nJY-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="n2ZeTPt7YN2r80nw7nJY-1" target="VSUsCu0HEHpfa1tFkbWb-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n2ZeTPt7YN2r80nw7nJY-1" value="Nyalain biru pada puzzle tersebut" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="twBF60l3qLjISwA-dCuY" name="Page-2">
+    <mxGraphModel dx="867" dy="482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
