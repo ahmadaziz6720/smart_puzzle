@@ -1,0 +1,10 @@
+Output: Export STEP
+Type  : ExportSTEP
+From  : Variant [[No Variations]] of PCB Document [smart_puzzle.PcbDoc]
+   Generated File[smart_puzzle.step]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 11.58.46 On 03/10/2022
