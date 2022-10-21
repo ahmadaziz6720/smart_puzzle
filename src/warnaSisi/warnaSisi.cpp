@@ -1,13 +1,14 @@
 #include "warnaSisi.h"
 
-int pinCA = 6;
-int pinCB = 7;
-int pinCC = 8;
-int pinCD = 9;
-int pinCE = 10;
-int pinRed = 3;
-int pinGreen = 4;
-int pinBlue = 5;
+
+int pinCA = 13;
+int pinCB = A0;
+int pinCC = A1;
+int pinCD = A2;
+int pinCE = A3;
+int pinRed = 6;
+int pinGreen = 9;
+int pinBlue = 10;
 
 unsigned long currTime;
 unsigned long prevTime;
@@ -83,6 +84,7 @@ void nyalaSisi(){
   nyalaRed.clear();
   nyalaGreen.clear();
   nyalaBlue.clear();
+  nyalaBlank.clear();
 }
 
 void pilihSisi (char sisi){
