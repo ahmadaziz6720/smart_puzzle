@@ -17,7 +17,7 @@ int power(int a,int b){
 }
 
 char readSisi::getCharacter(char sisi){
-  char sides[5] = {'a', 'b', 'c', 'd', 'e'};
+  char sides[5] = {'A', 'B', 'C', 'D', 'E'};
   int index = 0;
 
   // Mengkonvert huruf parameter abcde menjadi angka 012345, index

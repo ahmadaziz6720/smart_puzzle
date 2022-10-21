@@ -10,6 +10,7 @@ int pinRed = 6;
 int pinGreen = 9;
 int pinBlue = 10;
 
+
 unsigned long currTime;
 unsigned long prevTime;
 

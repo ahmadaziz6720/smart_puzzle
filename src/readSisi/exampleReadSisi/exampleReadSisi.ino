@@ -1,9 +1,8 @@
 #include "readSisi.h"
 #include "MUX74HC4067.h"
-int Signal1 = 8; int Signal2 = 6;int i; int SW = 4;
-int pot = A0; int potVal;
- MUX74HC4067 mux1(7, 12, 11, 10, 9);
- MUX74HC4067 mux2(7, 12, 11, 10, 9);
+int Signal1 = 11; int Signal2 = 12; int i; int SW = 4;
+ MUX74HC4067 mux1(A4, 4, 5, 7, 8);
+ MUX74HC4067 mux2(A5, 4, 5, 7, 8);
 
 void setup()
 {

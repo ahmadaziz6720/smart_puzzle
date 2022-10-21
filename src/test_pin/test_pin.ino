@@ -32,18 +32,21 @@ void setup() {
 
     Serial.begin(9600);
     softwareSerial.begin(9600);
-    if (player.begin(softwareSerial)) {
-      Serial.println("OK");
-      player.volume(100);
-      player.play(2);
-      delay(5000);
-      player.next();
-    } else {
-      Serial.println("Connecting to DFPlayer Mini failed!");
-    }
+    
 }
 
 void loop() {
+
+  if (player.begin(softwareSerial)) {
+      Serial.println("OK");
+      player.volume(100);
+      player.play(3);
+      delay(2000);
+      player.next();
+    } 
+  else {
+      Serial.println("Connecting to DFPlayer Mini failed!");
+  }
   player.next();
   digitalWrite(A0, HIGH);
   digitalWrite(A1, HIGH);
