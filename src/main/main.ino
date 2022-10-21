@@ -3,6 +3,7 @@
 #include "readSisi.h"
 #include "warnaSisi.h"
 
+#define JUMLAH_SISI 5
 #define ch_MAX 26
 
 DFRobotDFPlayerMini player;
@@ -23,7 +24,8 @@ bool newGame = true;
 bool correct = false;
     
 readSisi readsisi(&mux1, &mux2);
-
+char side_done_storage[JUMLAH_SISI];
+Vector<char> side_done(side_done_storage);
 
 void setup() {
   // put your setup code here, to run once:
@@ -37,7 +39,8 @@ void setup() {
   pinMode(pinGreen, OUTPUT);
   pinMode(pinBlue, OUTPUT);
   pinMode(pinCA, OUTPUT);
-  pinMode(pinCB, OUTPUT);
+  pinMode(pinCB, 
+  OUTPUT);
   pinMode(pinCC, OUTPUT);
   pinMode(pinCD, OUTPUT);
   pinMode(pinCE, OUTPUT);
@@ -106,21 +109,14 @@ void loop() {
 
 
     // blocking
-      while(readsisi.getCharacter(side) != letter){
-        Serial.println(voiceId(side, letter));
+      while(!correct){
+        checkSide(side, letter);
       }
-      
-     
     newGame = false;
   }
 
 }
 
-
-bool checkSide(char side, char letter){
-
-  return readsisi.getCharacter(side) == letter;
-}
 
 
 
@@ -188,11 +184,27 @@ void printDetail(uint8_t type, int value){
   }
 }
 
+void checkSide(char side, char letter){
+  correct = (readsisi.getCharacter(side) == letter);
+}
+
+
 char pickRandSide(){
   char alpha[ch_MAX] = { 'A', 'B', 'C', 'D', 'E' };
                           
   char result;
-        result =  alpha[rand() % ch_MAX];
+  result =  alpha[rand() % ch_MAX];
+  
+  side_done.push_back(result);
+  int i=0;
+  while(i<JUMLAH_SISI){
+    if(result == side_done[i]){
+      result=alpha[rand() % ch_MAX];
+      i=0;
+    }
+    i++;
+  }
+
 
   return result;
 }
