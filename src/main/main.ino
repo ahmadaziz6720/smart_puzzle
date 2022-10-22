@@ -20,12 +20,14 @@ MUX74HC4067 mux1(A4, 4, 5, 7, 8);
 MUX74HC4067 mux2(A5, 4, 5, 7, 8);
 
 
-bool gameover = false;
+bool gameover = true;
 bool correct = false;
     
 readSisi readsisi(&mux1, &mux2);
 char side_done_storage[JUMLAH_SISI];
 Vector<char> side_done(side_done_storage);
+char char_done_storage[ch_MAX];
+Vector<char> char_done(char_done_storage);
 int total_side_done = 0;
 
 void setup() {
@@ -66,7 +68,7 @@ void setup() {
 
 // yey kubus sudah terbentuk
 // 1-2 -> yeey! kubus sudah terbentuk
-
+#define KUBUS_TERBENTUK 1
 // Masukkan "alfabet" ke "warna"
 // 3-7 -> A (biru, hijau, kuning, merah, oranye)
 // 8-12 -> B
@@ -80,13 +82,9 @@ void setup() {
 // coba lagi ya 115-117
 #define COBA_LAGI_YA 115
 
-// Selamat kamu berhasil menyelesaikan puzzle
+// Selamat kamu berhasil menyelesaikan puzzle 118-119
+#define SELAMAT 118
 
-
-// Biru, kuning, hijau, dll
-
-
-// A-Z
 
 
 void loop() {
@@ -95,22 +93,65 @@ void loop() {
   // kuning -> sisi C
   // merah -> sisi D
   // oranye -> sisi E
-  char side = 'E';
-  setupWarna(side, 'B');
-  nyalaSisi();
-  char letter = 'a';
+
+//  while(gameover){
+//    
+//    if(total_side_done == JUMLAH_SISI){
+//      player.play(SELAMAT);
+//      int prevtime = millis();
+//      int currtime = millis();
+//      while(currtime - prevtime < 5000){
+//        currtime = millis();
+//      }
+//    }
+//    side_done.clear();
+//    char_done.clear();
+//    total_side_done = 0;
+//    // pilih level
+//
+//    // check for done building
+//    Serial.println("checking done rakit");
+//    if(isDoneRakit()){
+//      gameover=false;
+//      player.play(KUBUS_TERBENTUK);
+//      int prevtime = millis();
+//      int currtime = millis();
+//      while(currtime - prevtime < 5000){
+//          currtime = millis();
+//      }
+//    }
+//  }
+
   
+  char side = pickRandSide();
+
+  char letter ='a';
+//  setupWarna(side, 'B');
+//  for(int i =0;i<total_side_done-1;i++){
+//      Serial.println(side_done[i]);
+//      setupWarna(side_done[i], 'G');
+//  }
+//  nyalaSisi();
   player.play(voiceId(side, letter));
   player.pause();
   
   correct = false;
   while(!correct){
+    
+    
     if(!isWaitingForInput()){
+      Serial.println("input");
       checkSide(side, letter);
       if(!correct){
         player.play(COBA_LAGI_YA);
         setupWarna(side, 'R');
         nyalaSisi();
+//        for(int i =0;i<total_side_done-1;i++){
+//            Serial.println(side_done[i]);
+//            setupWarna(side_done[i], 'G');
+//        }
+//        setupWarna(side, 'R');
+//        nyalaSisi();
         int prevtime = millis();
         int currtime = millis();
         while(currtime - prevtime < 5000){
@@ -121,36 +162,31 @@ void loop() {
         player.play(TEPAT_SEKALI);
         setupWarna(side, 'G');
         nyalaSisi();
+//        for(int i =0;i<total_side_done-1;i++){
+//           Serial.println(side_done[i]);
+//           setupWarna(side_done[i], 'G');
+//        }
+//        setupWarna(side, 'G');
+//        nyalaSisi();
         int prevtime = millis();
         int currtime = millis();
         while(currtime - prevtime < 5000){
           currtime = millis();
         }
       }
+      
     }
   }
-   
-  while(gameover){
-    side_done.clear();
-    total_side_done = 0;
-    // pilih level
 
-    // check for done building
-  }
+   
+  
       
   
 
 }
 
 bool isDoneRakit(){
-  int i = 0;
-  for(i=10;i<JUMLAH_SISI+10;i++){
-    if(mux2.read(i) == 0){
-      gameover = false;
-      return false;
-    }
-  }
-  return true;
+  return (mux2.read(10) != 0);
 }
 
 
@@ -244,20 +280,26 @@ void checkSide(char side, char letter){
 //  char result;
 //  result =  alpha[rand() % JUMLAH_SISI];
 //  
-//  side_done.push_back(result);
+//  
 //  int i=0;
 //  while(i<JUMLAH_SISI){
+//
 //    if(result == side_done[i]){
+//        Serial.println("sama");
 //      result=alpha[rand() % JUMLAH_SISI];
-//      i=0;
+//      i=-1;
 //    }
 //    i++;
 //  }
 //
+//  side_done.push_back(result);
+//  total_side_done += 1;
 //
+//  if(total_side_done == JUMLAH_SISI){
+//    gameover = true;
+//  }
 //  return result;
 //}
-
 char pickRandSide(){
   char alpha[2] = { 'D', 'E' };
                           
@@ -266,10 +308,12 @@ char pickRandSide(){
   
   
   int i=0;
-  while(i<2){
+  while(i<JUMLAH_SISI){
+
     if(result == side_done[i]){
+        Serial.println("sama");
       result=alpha[rand() % 2];
-      i=0;
+      i=-1;
     }
     i++;
   }
@@ -290,8 +334,19 @@ char pickRandLetter()
                           'o', 'p', 'q', 'r', 's', 't', 'u',
                           'v', 'w', 'x', 'y', 'z' };
     char result;
-        result =  alpha[rand() % ch_MAX];
+    result =  alpha[rand() % ch_MAX];
 
+
+    int i=0;
+    while(i<ch_MAX){
+      if(result == char_done[i]){
+        result=alpha[rand() % ch_MAX];
+        i=-1;
+      }
+      i++;
+    }
+
+    char_done.push_back(result);
     return result;
 }
 
