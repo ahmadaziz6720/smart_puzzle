@@ -81,16 +81,13 @@ void nyalaSisi(){
     }
 
   }
-
-}
-
-
-void resetSisi(){
   nyalaRed.clear();
   nyalaGreen.clear();
   nyalaBlue.clear();
   nyalaBlank.clear();
 }
+
+
 
 
 void pilihSisi (char sisi){
