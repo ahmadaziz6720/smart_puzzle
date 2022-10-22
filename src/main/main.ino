@@ -5,7 +5,7 @@
 
 #define JUMLAH_SISI 5
 #define ch_MAX 26
-
+#define MUX_PINS 15
 DFRobotDFPlayerMini player;
 
 
@@ -14,18 +14,19 @@ static const uint8_t PIN_MP3_TX = 2; // Connects to module's RX
 static const uint8_t PIN_MP3_RX = 3; // Connects to module's TX 
 SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
 
-
+  
 int Signal1 = 11; int Signal2 = 12; int i; int SW = 4;
 MUX74HC4067 mux1(A4, 4, 5, 7, 8);
 MUX74HC4067 mux2(A5, 4, 5, 7, 8);
 
 
-bool newGame = true;
+bool gameover = false;
 bool correct = false;
     
 readSisi readsisi(&mux1, &mux2);
 char side_done_storage[JUMLAH_SISI];
 Vector<char> side_done(side_done_storage);
+int total_side_done = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -39,8 +40,7 @@ void setup() {
   pinMode(pinGreen, OUTPUT);
   pinMode(pinBlue, OUTPUT);
   pinMode(pinCA, OUTPUT);
-  pinMode(pinCB, 
-  OUTPUT);
+  pinMode(pinCB, OUTPUT);
   pinMode(pinCC, OUTPUT);
   pinMode(pinCD, OUTPUT);
   pinMode(pinCE, OUTPUT);
@@ -74,11 +74,11 @@ void setup() {
 // (22-1)*5+2+1-22*5+2 -> 108-112 -> V
 
 
-// tepat sekali, keren
+// tepat sekali, keren 113-114
+#define TEPAT_SEKALI 113
 
-
-// coba lagi ya
-
+// coba lagi ya 115-117
+#define COBA_LAGI_YA 115
 
 // Selamat kamu berhasil menyelesaikan puzzle
 
@@ -95,32 +95,81 @@ void loop() {
   // kuning -> sisi C
   // merah -> sisi D
   // oranye -> sisi E
-
-  while(newGame){
-    static unsigned long timer = millis();
-    char side = 'A';
-
-    setupWarna(side, 'B');
-    nyalaSisi();
-    char letter = 'b';
-
-    player.play(voiceId(side, letter));
-    player.pause();
-
-
-    // blocking
-      while(!correct){
-        checkSide(side, letter);
+  char side = 'E';
+  setupWarna(side, 'B');
+  nyalaSisi();
+  char letter = 'a';
+  
+  player.play(voiceId(side, letter));
+  player.pause();
+  
+  correct = false;
+  while(!correct){
+    if(!isWaitingForInput()){
+      checkSide(side, letter);
+      if(!correct){
+        player.play(COBA_LAGI_YA);
+        setupWarna(side, 'R');
+        nyalaSisi();
+        int prevtime = millis();
+        int currtime = millis();
+        while(currtime - prevtime < 5000){
+          currtime = millis();
+        }
       }
-    newGame = false;
+      else if(correct){
+        player.play(TEPAT_SEKALI);
+        setupWarna(side, 'G');
+        nyalaSisi();
+        int prevtime = millis();
+        int currtime = millis();
+        while(currtime - prevtime < 5000){
+          currtime = millis();
+        }
+      }
+    }
   }
+   
+  while(gameover){
+    side_done.clear();
+    total_side_done = 0;
+    // pilih level
+
+    // check for done building
+  }
+      
+  
 
 }
 
+bool isDoneRakit(){
+  int i = 0;
+  for(i=10;i<JUMLAH_SISI+10;i++){
+    if(mux2.read(i) == 0){
+      gameover = false;
+      return false;
+    }
+  }
+  return true;
+}
 
 
+bool isWaitingForInput(){
+  int i = 0;
+  for(i=0;i<MUX_PINS;i++){
+    if(mux1.read(i) != 0){
+      return false;
+    }
+  }
 
+  for(i=0;i<9;i++){
+    if(mux2.read(i) != 0){
+      return false;
+    }
+  }
 
+  return true;
+}
 
 
 void printDetail(uint8_t type, int value){
@@ -189,23 +238,48 @@ void checkSide(char side, char letter){
 }
 
 
+//char pickRandSide(){
+//  char alpha[JUMLAH_SISI] = { 'A', 'B', 'C', 'D', 'E' };
+//                          
+//  char result;
+//  result =  alpha[rand() % JUMLAH_SISI];
+//  
+//  side_done.push_back(result);
+//  int i=0;
+//  while(i<JUMLAH_SISI){
+//    if(result == side_done[i]){
+//      result=alpha[rand() % JUMLAH_SISI];
+//      i=0;
+//    }
+//    i++;
+//  }
+//
+//
+//  return result;
+//}
+
 char pickRandSide(){
-  char alpha[ch_MAX] = { 'A', 'B', 'C', 'D', 'E' };
+  char alpha[2] = { 'D', 'E' };
                           
   char result;
-  result =  alpha[rand() % ch_MAX];
+  result =  alpha[rand() % 2];
   
-  side_done.push_back(result);
+  
   int i=0;
-  while(i<JUMLAH_SISI){
+  while(i<2){
     if(result == side_done[i]){
-      result=alpha[rand() % ch_MAX];
+      result=alpha[rand() % 2];
       i=0;
     }
     i++;
   }
 
+  side_done.push_back(result);
+  total_side_done += 1;
 
+  if(total_side_done == JUMLAH_SISI){
+    gameover = true;
+  }
   return result;
 }
 
