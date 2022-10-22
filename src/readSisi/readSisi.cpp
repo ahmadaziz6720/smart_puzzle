@@ -31,13 +31,13 @@ char readSisi::getCharacter(char sisi){
   if(index < 3){
     // read data 5 bit per sisi
     for(int i=0;i<5;i++){
-      huruf_int+= mux1->read(index*5+i+1)* power(2, i);
+      huruf_int+= mux1->read(index*5+i)* power(2, i);
     }
   }
   else{
     index -= 3;
     for(int i=0;i<5;i++){
-      huruf_int+= mux2->read(index*5+i+1)* power(2, i);
+      huruf_int+= mux2->read(index*5+i)* power(2, i);
     }
   }
   
