@@ -30,6 +30,12 @@ char char_done_storage[ch_MAX];
 Vector<char> char_done(char_done_storage);
 int total_side_done = 0;
 
+int upButtonState = 0;
+int lastUpButtonState = 0;
+int downButtonState = 0;
+int lastDownButtonState = 0;
+int level = 1;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -95,7 +101,7 @@ void loop() {
   // oranye -> sisi E
 
   while(gameover){
-    if(total_side_done == JUMLAH_SISI){
+    if(total_side_done == 2){
       player.play(SELAMAT);
       int prevtime = millis();
       int currtime = millis();
@@ -107,29 +113,31 @@ void loop() {
     char_done.clear();
     total_side_done = 0;
     // pilih level
-
+    updateGameLevel();
     // check for done building
-    Serial.println("checking done rakit");
+//    Serial.println("checking done rakit");
     if(isDoneRakit()){
+      total_side_done = 0;
+      for(int i=0;i<JUMLAH_SISI;i++){
+        side_done_storage[i] = ' ';
+        char_done_storage[i] = ' ';
+      }
       gameover=false;
       player.play(KUBUS_TERBENTUK);
       int prevtime = millis();
       int currtime = millis();
       while(currtime - prevtime < 5000){
+      
           currtime = millis();
       }
     }
   }
-
   
   char side = pickRandSide();
 
   char letter ='a';
   setupWarna(side, 'B');
-  for(int i =0;i<total_side_done-1;i++){
-      Serial.println(side_done[i]);
-      setupWarna(side_done[i], 'G');
-  }
+  
   nyalaSisi();
   player.play(voiceId(side, letter));
   player.pause();
@@ -139,13 +147,11 @@ void loop() {
     
     
     if(!isWaitingForInput()){
-      Serial.println("input");
       
       checkSide(side, letter);
       if(!correct){
         player.play(COBA_LAGI_YA);
         for(int i =0;i<total_side_done-1;i++){
-            Serial.println(side_done[i]);
             setupWarna(side_done[i], 'G');
         }
         setupWarna(side, 'R');
@@ -160,7 +166,6 @@ void loop() {
       else if(correct){
         player.play(TEPAT_SEKALI);
         for(int i =0;i<total_side_done-1;i++){
-            Serial.println(side_done[i]);
             setupWarna(side_done[i], 'G');
         }
         setupWarna(side, 'G');
@@ -180,6 +185,47 @@ void loop() {
       
   
 
+}
+
+void updateGameLevel(){
+    upButtonState = mux2.read(11);
+    downButtonState = mux2.read(12);
+    // compare the buttonState to its previous state
+    if (upButtonState != lastUpButtonState) {
+      // if the state has changed, increment the counter
+      if (upButtonState == HIGH) {
+        // if the current state is HIGH then the button
+        // went from off to on:
+        level++;
+        
+      }
+      // Delay a little bit to avoid bouncing
+      delay(50);
+    }
+    // save the current state as the last state for next time through the loop
+    lastUpButtonState = upButtonState;
+
+
+    if (downButtonState != lastDownButtonState) {
+      // if the state has changed, increment the counter
+      if (downButtonState == HIGH) {
+        // if the current state is HIGH then the button
+        // went from off to on:
+        level--;
+        
+      }
+      // Delay a little bit to avoid bouncing
+      delay(50);
+    }
+
+    lastDownButtonState = downButtonState;
+    if(level >= 5) {
+      level = 5;
+    }
+    if(level <= 1){
+      level = 1;
+    }
+    Serial.println(level);
 }
 
 bool isDoneRakit(){
@@ -306,7 +352,7 @@ char pickRandSide(){
   
   int i=0;
   while(i<JUMLAH_SISI){
-
+  Serial.println(side_done[i]);
     if(result == side_done[i]){
       result=alpha[rand() % 2];
       i=-1;
@@ -317,7 +363,7 @@ char pickRandSide(){
   side_done.push_back(result);
   total_side_done += 1;
 
-  if(total_side_done == JUMLAH_SISI){
+  if(total_side_done == 2){
     gameover = true;
   }
   return result;
@@ -330,13 +376,19 @@ char pickRandLetter()
                           'o', 'p', 'q', 'r', 's', 't', 'u',
                           'v', 'w', 'x', 'y', 'z' };
     char result;
-    result =  alpha[rand() % ch_MAX];
+    if(level != 5){
+      result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+    }
+    else{
+      result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+    }
+    
 
 
     int i=0;
     while(i<ch_MAX){
       if(result == char_done[i]){
-        result=alpha[rand() % ch_MAX];
+        result=alpha[rand() % JUMLAH_SISI + (level-1)*5];
         i=-1;
       }
       i++;
