@@ -101,7 +101,7 @@ void loop() {
   // oranye -> sisi E
 
   while(gameover){
-    if(total_side_done == 2){
+    if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
       int prevtime = millis();
       int currtime = millis();
@@ -344,17 +344,17 @@ void checkSide(char side, char letter){
 //  return result;
 //}
 char pickRandSide(){
-  char alpha[2] = { 'D', 'E' };
+  char alpha[JUMLAH_SISI] = { 'A', 'B', 'C', 'D', 'E' };
                           
   char result;
-  result =  alpha[rand() % 2];
+  result =  alpha[rand() % JUMLAH_SISI];
   
   
   int i=0;
   while(i<JUMLAH_SISI){
   Serial.println(side_done[i]);
     if(result == side_done[i]){
-      result=alpha[rand() % 2];
+      result=alpha[rand() % JUMLAH_SISI];
       i=-1;
     }
     i++;
@@ -363,7 +363,7 @@ char pickRandSide(){
   side_done.push_back(result);
   total_side_done += 1;
 
-  if(total_side_done == 2){
+  if(total_side_done == JUMLAH_SISI){
     gameover = true;
   }
   return result;
@@ -379,7 +379,7 @@ char pickRandLetter()
     if(level != 5){
       result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
     }
-    else{
+    else if(level == 5){
       result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
     }
     
@@ -388,7 +388,12 @@ char pickRandLetter()
     int i=0;
     while(i<ch_MAX){
       if(result == char_done[i]){
-        result=alpha[rand() % JUMLAH_SISI + (level-1)*5];
+        if(level != 5){
+          result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+        }
+        else if(level == 5){
+          result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+        }
         i=-1;
       }
       i++;
