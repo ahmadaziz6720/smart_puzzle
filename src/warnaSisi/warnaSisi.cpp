@@ -39,6 +39,7 @@ void setupWarna(char sisi, char warna){
   }
 }
 
+
 void nyalaSisi(){
   for(int i=0; i<nyalaRed.size(); i++){
     pilihSisi(nyalaRed[i]);
@@ -80,13 +81,14 @@ void nyalaSisi(){
     }
 
   }
-
-  
   nyalaRed.clear();
   nyalaGreen.clear();
   nyalaBlue.clear();
   nyalaBlank.clear();
 }
+
+
+
 
 void pilihSisi (char sisi){
   if (sisi == 'A'){
