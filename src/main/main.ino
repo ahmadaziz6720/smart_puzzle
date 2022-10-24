@@ -2,6 +2,8 @@
 #include "SoftwareSerial.h"
 #include "readSisi.h"
 #include "warnaSisi.h"
+#include "Vector.h"
+#include "neotimer.h"
 
 #define JUMLAH_SISI 5
 #define ch_MAX 26
@@ -36,6 +38,8 @@ int downButtonState = 0;
 int lastDownButtonState = 0;
 int level = 1;
 
+Neotimer timer_voice  = Neotimer(4000);
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -58,6 +62,8 @@ void setup() {
   digitalWrite(pinCD, HIGH);
   digitalWrite(pinCE, HIGH);
 
+  timer_voice.set(4000);
+  
   if (!player.begin(softwareSerial)) {  //Use softwareSerial to communicate with mp3.
     Serial.println(F("Unable to begin:"));
     Serial.println(F("1.Please recheck the connection!"));
@@ -81,6 +87,8 @@ void setup() {
 // ....
 // (22-1)*5+2+1-22*5+2 -> 108-112 -> V
 
+// 128-132 -> Z
+
 
 // tepat sekali, keren 113-114
 #define TEPAT_SEKALI 113
@@ -99,7 +107,7 @@ void loop() {
   // kuning -> sisi C
   // merah -> sisi D
   // oranye -> sisi E
-
+  delay(4000);
   while(gameover){
     if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
@@ -121,63 +129,70 @@ void loop() {
       for(int i=0;i<JUMLAH_SISI;i++){
         side_done_storage[i] = ' ';
         char_done_storage[i] = ' ';
+        side_done[i] = ' ';
+        char_done[i] = ' ';
       }
       gameover=false;
+      matiSisi();
+      removeWarna('A', 'R');
+      removeWarna('B', 'R');
+      removeWarna('C', 'R');
+      removeWarna('D', 'R');
+      removeWarna('E', 'R');
+      removeWarna('A', 'G');
+      removeWarna('B', 'G');
+      removeWarna('C', 'G');
+      removeWarna('D', 'G');
+      removeWarna('E', 'G');
+      removeWarna('A', 'B');
+      removeWarna('B', 'B');
+      removeWarna('C', 'B');
+      removeWarna('D', 'B');
+      removeWarna('E', 'B');
       player.play(KUBUS_TERBENTUK);
       int prevtime = millis();
       int currtime = millis();
-      while(currtime - prevtime < 5000){
-      
-          currtime = millis();
-      }
+      delay(5000);
     }
   }
-  
+
   char side = pickRandSide();
 
-  char letter ='a';
-  setupWarna(side, 'B');
+  char letter =pickRandLetter();
+  setupWarna(side, 'B', ' ');
   
   nyalaSisi();
   player.play(voiceId(side, letter));
-  player.pause();
+
   
+ 
   correct = false;
   while(!correct){
     
+     
     
     if(!isWaitingForInput()){
       
       checkSide(side, letter);
       if(!correct){
-        player.play(COBA_LAGI_YA);
+        setupWarna(side, 'R', 'B');
         for(int i =0;i<total_side_done-1;i++){
-            setupWarna(side_done[i], 'G');
+            setupWarna(side_done[i], 'G', ' ');
+            nyalaSisi();
         }
-        setupWarna(side, 'R');
-        nyalaSisi();
-
-        int prevtime = millis();
-        int currtime = millis();
-        while(currtime - prevtime < 5000){
-          currtime = millis();
-        }
+        player.play(COBA_LAGI_YA);
       }
       else if(correct){
-        player.play(TEPAT_SEKALI);
+        setupWarna(side, 'G', 'R');
         for(int i =0;i<total_side_done-1;i++){
-            setupWarna(side_done[i], 'G');
-        }
-        setupWarna(side, 'G');
-        nyalaSisi();
-
-        int prevtime = millis();
-        int currtime = millis();
-        while(currtime - prevtime < 5000){
-          currtime = millis();
-        }
+            setupWarna(side_done[i], 'G', ' ');
+            nyalaSisi();
+        }   
+        player.play(TEPAT_SEKALI);    
       }
+
     }
+    nyalaSisi();
   }
 
    
@@ -363,7 +378,7 @@ char pickRandSide(){
   side_done.push_back(result);
   total_side_done += 1;
 
-  if(total_side_done == JUMLAH_SISI){
+  if(total_side_done == JUMLAH_SISI ){
     gameover = true;
   }
   return result;

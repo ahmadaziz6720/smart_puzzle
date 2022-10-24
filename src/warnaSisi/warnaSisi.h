@@ -29,5 +29,6 @@ extern unsigned long timer;
 
 void setupWarna(char sisi, char warna, char prevWarna=' ');
 void nyalaSisi();
-
+void matiSisi();
+void removeWarna(char sisi, char warna);
 #endif
