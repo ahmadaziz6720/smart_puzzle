@@ -231,7 +231,10 @@ void updateGameLevel(){
         // if the current state is HIGH then the button
         // went from off to on:
         level++;
-        
+        if(level >= 5) {
+          level = 5;
+        }
+        player.play(level+2);
       }
       // Delay a little bit to avoid bouncing
       delay(50);
@@ -247,18 +250,17 @@ void updateGameLevel(){
         // went from off to on:
         level--;
         
+        if(level <= 1){
+          level = 1;
+        }
+        player.play(level+2);
       }
       // Delay a little bit to avoid bouncing
-      delay(50);
+      delay(100);
     }
 
     lastDownButtonState = downButtonState;
-    if(level >= 5) {
-      level = 5;
-    }
-    if(level <= 1){
-      level = 1;
-    }
+    
     Serial.println(level);
 }
 
@@ -351,7 +353,14 @@ void checkSide(char side, char letter){
     correct = false;
     return;
   }
-  correct = (readsisi.getCharacter(side) == letter);
+  int currtime = millis();
+  int prevtime = millis();
+  while(currtime - prevtime < 1000){
+    correct = (readsisi.getCharacter(side) == letter);
+    nyalaSisi();
+    currtime = millis();
+  }
+  
 }
 
 char pickRandSide(){
@@ -456,7 +465,7 @@ int voiceId(char side, char letter){
 
    for(int i = 0; i < ch_MAX; i++){
     if(letter == letters[i]){
-      letter_index = i+1;
+      letter_index = i;
     }
   }
   // (22-1)*5+2+1-22*5+2 -> 108-112 -> V
