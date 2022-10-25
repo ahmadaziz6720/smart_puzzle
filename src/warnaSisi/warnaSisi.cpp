@@ -11,141 +11,162 @@ int pinGreen = 9;
 int pinBlue = 10;
 
 
-unsigned long currTime;
-unsigned long prevTime;
+RGBLed led(pinRed, pinGreen, pinBlue, RGBLed::COMMON_CATHODE);
 
-char red[SISI_COUNT_MAX];
-char green[SISI_COUNT_MAX];
-char blue[SISI_COUNT_MAX];
-char blank[SISI_COUNT_MAX];
+String red = "";
+String green = "";
+String blue = "";
 
-Vector <char> nyalaRed(red);
-Vector <char> nyalaGreen(green);
-Vector <char> nyalaBlue(blue);
-Vector <char> nyalaBlank(blank);
+int jumlah_red = 0;
+int jumlah_green = 0;
+int jumlah_blue = 0;  
 
-void setupWarna(char sisi, char warna){
-  if(warna == 'R'){
-    nyalaRed.push_back(sisi); 
+
+bool isAlreadyWritten(char sisi, String nyala){
+  for(int i=0;i<SISI_COUNT_MAX;i++){
+    if(nyala[i] == sisi){
+      return true;
     }
-  else if(warna == 'G'){
-    nyalaGreen.push_back(sisi);
+  }
+  return false;
+}
+
+
+int findSisiId(char sisi, String nyala){
+ for(int i=0;i<SISI_COUNT_MAX;i++){
+ 
+    if(sisi == nyala[i]){
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+
+
+void removeWarna(char sisi, char warna){
+  int id;
+  if(warna == 'R'){
+    
+    id = findSisiId(sisi, red);
+    red.remove(id);
+    jumlah_red--;
+    
   }
   else if(warna == 'B'){
-    nyalaBlue.push_back(sisi);
+    id = findSisiId(sisi, blue);
+    blue.remove(id);
+    jumlah_blue--;
+   
   }
-  else{
-    nyalaBlank.push_back(sisi);
+  else if(warna == 'G'){
+    id = findSisiId(sisi, green);
+    green.remove(id);
+    jumlah_green--;
+    
+   
   }
-}
-
-void nyalaSisi(){
-  for(int i=0; i<nyalaRed.size(); i++){
-    pilihSisi(nyalaRed[i]);
-    pilihWarna('R');
-    prevTime = millis();
-    currTime = millis();
-    while((currTime - prevTime) < DELAY_TIME){
-      currTime = millis();
-    }
-  }
-  for(int i=0; i<nyalaGreen.size(); i++){
-    pilihSisi(nyalaGreen[i]);
-    pilihWarna('G');
-    prevTime = millis();
-    currTime = millis();
-    while((currTime - prevTime) < DELAY_TIME){
-      currTime = millis();
-    }
-  }
-
-  for(int i=0; i<nyalaBlue.size(); i++){
-    pilihSisi(nyalaBlue[i]);
-    pilihWarna('B');
-    prevTime = millis();
-    currTime = millis();
-    while((currTime - prevTime) < DELAY_TIME){
-      currTime = millis();
-    }
-
-  }
-
-  for(int i=0; i<nyalaBlank.size(); i++){
-    pilihSisi(nyalaBlank[i]);
-    pilihWarna(' ');
-    prevTime = millis();
-    currTime = millis();
-    while((currTime - prevTime) < DELAY_TIME){
-      currTime = millis();
-    }
-
-  }
-
   
-  nyalaRed.clear();
-  nyalaGreen.clear();
-  nyalaBlue.clear();
-  nyalaBlank.clear();
 }
+
 
 void pilihSisi (char sisi){
-  if (sisi == 'A'){
+  if (sisi == ' '){
+    return;
+  }
+  else if (sisi == 'A'){
     digitalWrite(pinCA, LOW);
-    digitalWrite(pinCB, HIGH);
-    digitalWrite(pinCC, HIGH);
-    digitalWrite(pinCD, HIGH);
-    digitalWrite(pinCE, HIGH);
   }
   else if (sisi == 'B'){
-    digitalWrite(pinCA, HIGH);
     digitalWrite(pinCB, LOW);
-    digitalWrite(pinCC, HIGH);
-    digitalWrite(pinCD, HIGH);
-    digitalWrite(pinCE, HIGH);
   }
   else if (sisi == 'C'){
-    digitalWrite(pinCA, HIGH);
-    digitalWrite(pinCB, HIGH);
     digitalWrite(pinCC, LOW);
-    digitalWrite(pinCD, HIGH);
-    digitalWrite(pinCE, HIGH);
   }
   else if (sisi == 'D'){
-    digitalWrite(pinCA, HIGH);
-    digitalWrite(pinCB, HIGH);
-    digitalWrite(pinCC, HIGH);
     digitalWrite(pinCD, LOW);
-    digitalWrite(pinCE, HIGH);
   }
   else if (sisi == 'E'){
-    digitalWrite(pinCA, HIGH);
-    digitalWrite(pinCB, HIGH);
-    digitalWrite(pinCC, HIGH);
-    digitalWrite(pinCD, HIGH);
     digitalWrite(pinCE, LOW);
   }
 }
 
-void pilihWarna (char warna){
-  if (warna == 'R'){
-    digitalWrite (pinRed,HIGH);
-    digitalWrite (pinGreen,LOW);
-    digitalWrite (pinBlue,LOW);
+
+
+
+ void matiSisi(){
+  digitalWrite(pinCA, HIGH);
+  digitalWrite(pinCB, HIGH);
+  digitalWrite(pinCC, HIGH);
+  digitalWrite(pinCD, HIGH);
+  digitalWrite(pinCE, HIGH);
+}
+
+
+
+void setupWarna(char sisi, char warna, char prevWarna = ' '){
+  if(warna == 'R'){
+    if(!isAlreadyWritten(sisi, red)){
+       red = String(red + sisi);
+       jumlah_red++;
+    }
+   
+    }
+  else if(warna == 'G'){
+    if(!isAlreadyWritten(sisi, green)){
+       green = String(green + sisi);
+       jumlah_green++;
+    }
+   
   }
-    else if (warna == 'G'){
-    digitalWrite (pinRed,LOW);
-    digitalWrite (pinGreen,HIGH);
-    digitalWrite (pinBlue,LOW);
-  }
-    else if (warna == 'B'){
-    digitalWrite (pinRed,LOW);
-    digitalWrite (pinGreen,LOW);
-    digitalWrite (pinBlue,HIGH);
-  }
-  else if (warna == ' '){
-    digitalWrite (pinRed,LOW);
-    digitalWrite (pinGreen,LOW);
-    digitalWrite (pinBlue,LOW);
+  else if(warna == 'B'){
+    if(!isAlreadyWritten(sisi, blue)){
+      blue = String(blue + sisi);
+      jumlah_blue++;
+    }
+    
   }
   
- }
+
+   if(prevWarna != ' '){
+     removeWarna(sisi, prevWarna);
+  }
+}
+
+
+
+void nyalaSisi(){
+  int timer = 0;
+  if(millis()-timer > 0){
+      for(int i=0; i<red.length(); i++){
+        pilihSisi(red[i]);
+      }
+  }
+  
+  led.flash(RGBLed::RED, INTERVAL, 0);    
+  
+  matiSisi();
+
+  if(millis()-timer > INTERVAL){
+      for(int i=0; i<green.length(); i++){
+        pilihSisi(green[i]);
+      }
+  }
+
+  led.flash(RGBLed::GREEN, INTERVAL, 0);    
+
+  matiSisi();
+
+  if(millis()-timer > INTERVAL*2){
+      for(int i=0; i<blue.length(); i++){
+        pilihSisi(blue[i]);
+      }
+  }
+
+  led.flash(RGBLed::BLUE, INTERVAL, 0); 
+
+  matiSisi();
+  
+}
+

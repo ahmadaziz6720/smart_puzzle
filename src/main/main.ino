@@ -2,6 +2,8 @@
 #include "SoftwareSerial.h"
 #include "readSisi.h"
 #include "warnaSisi.h"
+#include "Vector.h"
+#include "neotimer.h"
 
 #define JUMLAH_SISI 5
 #define ch_MAX 26
@@ -20,13 +22,21 @@ MUX74HC4067 mux1(A4, 4, 5, 7, 8);
 MUX74HC4067 mux2(A5, 4, 5, 7, 8);
 
 
-bool gameover = false;
+bool gameover = true;
 bool correct = false;
     
 readSisi readsisi(&mux1, &mux2);
 char side_done_storage[JUMLAH_SISI];
 Vector<char> side_done(side_done_storage);
+char char_done_storage[ch_MAX];
+Vector<char> char_done(char_done_storage);
 int total_side_done = 0;
+
+int upButtonState = 0;
+int lastUpButtonState = 0;
+int downButtonState = 0;
+int lastDownButtonState = 0;
+int level = 1;
 
 void setup() {
   // put your setup code here, to run once:
@@ -50,6 +60,7 @@ void setup() {
   digitalWrite(pinCD, HIGH);
   digitalWrite(pinCE, HIGH);
 
+  
   if (!player.begin(softwareSerial)) {  //Use softwareSerial to communicate with mp3.
     Serial.println(F("Unable to begin:"));
     Serial.println(F("1.Please recheck the connection!"));
@@ -66,27 +77,25 @@ void setup() {
 
 // yey kubus sudah terbentuk
 // 1-2 -> yeey! kubus sudah terbentuk
-
+#define KUBUS_TERBENTUK 1
 // Masukkan "alfabet" ke "warna"
 // 3-7 -> A (biru, hijau, kuning, merah, oranye)
 // 8-12 -> B
 // ....
 // (22-1)*5+2+1-22*5+2 -> 108-112 -> V
 
-
-// tepat sekali, keren 113-114
-#define TEPAT_SEKALI 113
-
-// coba lagi ya 115-117
-#define COBA_LAGI_YA 115
-
-// Selamat kamu berhasil menyelesaikan puzzle
+// 128-132 -> Z
 
 
-// Biru, kuning, hijau, dll
+// tepat sekali, keren 133-134
+#define TEPAT_SEKALI 133
 
+// coba lagi ya 135-137
+#define COBA_LAGI_YA 135
 
-// A-Z
+// Selamat kamu berhasil menyelesaikan puzzle 138-139
+#define SELAMAT 138
+
 
 
 void loop() {
@@ -95,62 +104,168 @@ void loop() {
   // kuning -> sisi C
   // merah -> sisi D
   // oranye -> sisi E
-  char side = 'E';
-  setupWarna(side, 'B');
-  nyalaSisi();
-  char letter = 'a';
-  
-  player.play(voiceId(side, letter));
-  player.pause();
-  
-  correct = false;
-  while(!correct){
-    if(!isWaitingForInput()){
-      checkSide(side, letter);
-      if(!correct){
-        player.play(COBA_LAGI_YA);
-        setupWarna(side, 'R');
+  while(gameover){
+    if(total_side_done == JUMLAH_SISI){
+      player.play(SELAMAT);
+      int prevtime = millis();
+      int currtime = millis();
+      while(currtime - prevtime < 5000){
         nyalaSisi();
-        int prevtime = millis();
-        int currtime = millis();
-        while(currtime - prevtime < 5000){
-          currtime = millis();
-        }
-      }
-      else if(correct){
-        player.play(TEPAT_SEKALI);
-        setupWarna(side, 'G');
-        nyalaSisi();
-        int prevtime = millis();
-        int currtime = millis();
-        while(currtime - prevtime < 5000){
-          currtime = millis();
-        }
+        currtime = millis();
       }
     }
-  }
    
-  while(gameover){
-    side_done.clear();
     total_side_done = 0;
     // pilih level
-
+    updateGameLevel();
     // check for done building
+//    Serial.println("checking done rakit");
+    if(isDoneRakit()){
+      reset();
+      player.play(KUBUS_TERBENTUK);
+      int prevtime = millis();
+      int currtime = millis();
+      delay(5000);
+    }
   }
+
+  char side = pickRandSide();
+  char letter = pickRandLetter();
+  
+  setupWarna(side, 'B', ' ');
+  
+  nyalaSisi();
+  player.play(voiceId(side, letter));
+
+  
+ 
+  correct = false;
+  while(!correct){
+    
+     
+    
+    if(!isWaitingForInput()){
+      
+      checkSide(side, letter);
+      if(!correct){
+        setupWarna(side, 'R', 'B');
+        nyalaSisi();
+        for(int i =0;i<total_side_done-1;i++){
+            setupWarna(side_done[i], 'G', ' ');
+            nyalaSisi();
+        }
+        player.play(COBA_LAGI_YA);
+        int prevtime = millis();
+        int currtime = millis();
+        while(currtime - prevtime < 2000){
+          nyalaSisi();
+          currtime = millis();
+        }
+        
+      }
+      else if(correct){
+        Serial.println("Correct");
+        setupWarna(side, 'G', 'R');
+        nyalaSisi();
+        for(int i =0;i<total_side_done-1;i++){
+            setupWarna(side_done[i], 'G', ' ');
+            nyalaSisi();
+        }   
+        player.play(TEPAT_SEKALI); 
+        int prevtime = millis();
+        int currtime = millis();
+        while(currtime - prevtime <  5000){
+          nyalaSisi();
+          currtime = millis();
+        } 
+      }
+    }
+    nyalaSisi();
+  }
+
+   
+  
       
   
 
 }
 
-bool isDoneRakit(){
-  int i = 0;
-  for(i=10;i<JUMLAH_SISI+10;i++){
-    if(mux2.read(i) == 0){
-      gameover = false;
-      return false;
+void reset(){
+  side_done.clear();
+    char_done.clear();
+    total_side_done = 0;
+    for(int i=0;i<JUMLAH_SISI;i++){
+      side_done_storage[i] = ' ';
+      char_done_storage[i] = ' ';
+      side_done[i] = ' ';
+      char_done[i] = ' ';
     }
-  }
-  return true;
+    gameover=false;
+    matiSisi();
+    removeWarna('A', 'R');
+    removeWarna('B', 'R');
+    removeWarna('C', 'R');
+    removeWarna('D', 'R');
+    removeWarna('E', 'R');
+    removeWarna('A', 'G');
+    removeWarna('B', 'G');
+    removeWarna('C', 'G');
+    removeWarna('D', 'G');
+    removeWarna('E', 'G');
+    removeWarna('A', 'B');
+    removeWarna('B', 'B');
+    removeWarna('C', 'B');
+    removeWarna('D', 'B');
+    removeWarna('E', 'B');
+
+}
+
+
+void updateGameLevel(){
+    upButtonState = mux2.read(11);
+    downButtonState = mux2.read(12);
+    // compare the buttonState to its previous state
+    if (upButtonState != lastUpButtonState) {
+      // if the state has changed, increment the counter
+      if (upButtonState == HIGH) {
+        // if the current state is HIGH then the button
+        // went from off to on:
+        level++;
+        if(level >= 5) {
+          level = 5;
+        }
+        player.play(level+2);
+      }
+      // Delay a little bit to avoid bouncing
+      delay(50);
+    }
+    // save the current state as the last state for next time through the loop
+    lastUpButtonState = upButtonState;
+
+
+    if (downButtonState != lastDownButtonState) {
+      // if the state has changed, increment the counter
+      if (downButtonState == HIGH) {
+        // if the current state is HIGH then the button
+        // went from off to on:
+        level--;
+        
+        if(level <= 1){
+          level = 1;
+        }
+        player.play(level+2);
+      }
+      // Delay a little bit to avoid bouncing
+      delay(100);
+    }
+
+    lastDownButtonState = downButtonState;
+    
+    Serial.println(level);
+}
+
+bool isDoneRakit(){
+  return (mux2.read(10) != 0);
 }
 
 
@@ -234,42 +349,33 @@ void printDetail(uint8_t type, int value){
 }
 
 void checkSide(char side, char letter){
-  correct = (readsisi.getCharacter(side) == letter);
+  if(readsisi.getCharacter(side) == ' '){
+    correct = false;
+    return;
+  }
+  int currtime = millis();
+  int prevtime = millis();
+  while(currtime - prevtime < 1000){
+    correct = (readsisi.getCharacter(side) == letter);
+    nyalaSisi();
+    currtime = millis();
+  }
+  
 }
 
-
-//char pickRandSide(){
-//  char alpha[JUMLAH_SISI] = { 'A', 'B', 'C', 'D', 'E' };
-//                          
-//  char result;
-//  result =  alpha[rand() % JUMLAH_SISI];
-//  
-//  side_done.push_back(result);
-//  int i=0;
-//  while(i<JUMLAH_SISI){
-//    if(result == side_done[i]){
-//      result=alpha[rand() % JUMLAH_SISI];
-//      i=0;
-//    }
-//    i++;
-//  }
-//
-//
-//  return result;
-//}
-
 char pickRandSide(){
-  char alpha[2] = { 'D', 'E' };
+  char alpha[JUMLAH_SISI] = { 'A', 'B', 'C', 'D', 'E' };
                           
   char result;
-  result =  alpha[rand() % 2];
+  result =  alpha[rand() % JUMLAH_SISI];
   
   
   int i=0;
-  while(i<2){
+  while(i<JUMLAH_SISI){
+  Serial.println(side_done[i]);
     if(result == side_done[i]){
-      result=alpha[rand() % 2];
-      i=0;
+      result=alpha[rand() % JUMLAH_SISI];
+      i=-1;
     }
     i++;
   }
@@ -277,11 +383,37 @@ char pickRandSide(){
   side_done.push_back(result);
   total_side_done += 1;
 
-  if(total_side_done == JUMLAH_SISI){
+  if(total_side_done == JUMLAH_SISI ){
     gameover = true;
   }
   return result;
 }
+
+
+//char pickRandSide(){
+//  char alpha[JUMLAH_SISI] = {  'D', 'E' };
+//                          
+//  char result;
+//  result =  alpha[rand() % 2];
+//  
+//  
+//  int i=0;
+//  while(i<2){
+//    if(result == side_done[i]){
+//      result=alpha[rand() % 2];
+//      i=-1;
+//    }
+//    i++;
+//  }
+//
+//  side_done.push_back(result);
+//  total_side_done += 1;
+//
+//  if(total_side_done == 2){
+//    gameover = true;
+//  }
+//  return result;
+//}
 
 char pickRandLetter()
 {
@@ -290,8 +422,30 @@ char pickRandLetter()
                           'o', 'p', 'q', 'r', 's', 't', 'u',
                           'v', 'w', 'x', 'y', 'z' };
     char result;
-        result =  alpha[rand() % ch_MAX];
+    if(level != 5){
+      result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+    }
+    else if(level == 5){
+      result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+    }
+    
 
+
+    int i=0;
+    while(i<ch_MAX){
+      if(result == char_done[i]){
+        if(level != 5){
+          result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+        }
+        else if(level == 5){
+          result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+        }
+        i=-1;
+      }
+      i++;
+    }
+
+    char_done.push_back(result);
     return result;
 }
 
@@ -311,7 +465,7 @@ int voiceId(char side, char letter){
 
    for(int i = 0; i < ch_MAX; i++){
     if(letter == letters[i]){
-      letter_index = i+1;
+      letter_index = i;
     }
   }
   // (22-1)*5+2+1-22*5+2 -> 108-112 -> V

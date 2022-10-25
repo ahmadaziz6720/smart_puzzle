@@ -2,7 +2,7 @@
 #define WARNASISI_H
 
 #include <Arduino.h>
-#include <Vector.h>
+#include <RGBLed.h>
 
 extern int pinCA;
 extern int pinCB;
@@ -13,22 +13,22 @@ extern int pinRed;
 extern int pinGreen;
 extern int pinBlue;
 
-#define DELAY_TIME 1
+#define INTERVAL 1
 #define SISI_COUNT_MAX 5
 
-extern unsigned long currTime;
-extern unsigned long prevTime;
 
-extern char red[SISI_COUNT_MAX];
-extern char green[SISI_COUNT_MAX];
-extern char blue[SISI_COUNT_MAX];
-extern char blank[SISI_COUNT_MAX];
+extern String red;
+extern String green;
+extern String blue; 
+
+extern int jumlah_red;
+extern int jumlah_green;
+extern int jumlah_blue;
+extern unsigned long timer;
 
 
-
-void setupWarna(char sisi, char warna);
+void setupWarna(char sisi, char warna, char prevWarna=' ');
 void nyalaSisi();
-void pilihSisi(char sisi);
-void pilihWarna(char warna);
-
+void matiSisi();
+void removeWarna(char sisi, char warna);
 #endif
