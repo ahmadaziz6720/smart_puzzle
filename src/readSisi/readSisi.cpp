@@ -8,6 +8,7 @@ readSisi::readSisi(MUX74HC4067 *mux1, MUX74HC4067 *mux2){
   this->mux2 = mux2;
 }
 
+// jangan pakai library power bawaan C++
 int power(int a,int b){
   int result = 1;
   for(int i=0;i<b;i++){
