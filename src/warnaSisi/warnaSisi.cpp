@@ -10,7 +10,7 @@ int pinRed = 6;
 int pinGreen = 9;
 int pinBlue = 10;
 
-
+// require RGBLed library https://github.com/wilmouths/RGBLed
 RGBLed led(pinRed, pinGreen, pinBlue, RGBLed::COMMON_CATHODE);
 
 String red = "";
@@ -21,7 +21,7 @@ int jumlah_red = 0;
 int jumlah_green = 0;
 int jumlah_blue = 0;  
 
-
+// check is already turned on in the same color
 bool isAlreadyWritten(char sisi, String nyala){
   for(int i=0;i<SISI_COUNT_MAX;i++){
     if(nyala[i] == sisi){
@@ -32,6 +32,7 @@ bool isAlreadyWritten(char sisi, String nyala){
 }
 
 
+// find id of sides using side as input
 int findSisiId(char sisi, String nyala){
  for(int i=0;i<SISI_COUNT_MAX;i++){
  
@@ -44,7 +45,7 @@ int findSisiId(char sisi, String nyala){
 }
 
 
-
+// remove a color from a side
 void removeWarna(char sisi, char warna){
   int id;
   if(warna == 'R'){
@@ -71,6 +72,7 @@ void removeWarna(char sisi, char warna){
 }
 
 
+// turn common cathode of a side to LOW
 void pilihSisi (char sisi){
   if (sisi == ' '){
     return;
@@ -94,7 +96,7 @@ void pilihSisi (char sisi){
 
 
 
-
+// turn off all LED
  void matiSisi(){
   digitalWrite(pinCA, HIGH);
   digitalWrite(pinCB, HIGH);
@@ -105,6 +107,7 @@ void pilihSisi (char sisi){
 
 
 
+// Setup color of a side
 void setupWarna(char sisi, char warna, char prevWarna = ' '){
   if(warna == 'R'){
     if(!isAlreadyWritten(sisi, red)){
@@ -135,7 +138,7 @@ void setupWarna(char sisi, char warna, char prevWarna = ' '){
 }
 
 
-
+// function for turning on all LED of all sides
 void nyalaSisi(){
   int timer = 0;
   if(millis()-timer > 0){
