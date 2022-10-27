@@ -160,7 +160,6 @@ void loop() {
         while(currtime - prevtime < 2000){
           nyalaSisi();
           currtime = millis();
-          //test
         }
         
       }
