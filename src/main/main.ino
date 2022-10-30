@@ -86,7 +86,6 @@ void setup() {
 
 // 128-132 -> Z
 
-
 // tepat sekali, keren 133-134
 #define TEPAT_SEKALI 133
 
@@ -234,7 +233,7 @@ void updateGameLevel(){
         if(level >= 5) {
           level = 5;
         }
-        player.play(level+2);
+        player.play(level+138);
       }
       // Delay a little bit to avoid bouncing
       delay(50);
@@ -253,7 +252,7 @@ void updateGameLevel(){
         if(level <= 1){
           level = 1;
         }
-        player.play(level+2);
+        player.play(level+138);
       }
       // Delay a little bit to avoid bouncing
       delay(100);
@@ -470,6 +469,7 @@ int voiceId(char side, char letter){
   }
   // (22-1)*5+2+1-22*5+2 -> 108-112 -> V
 
+  // 25*5 + 2 + 5
   int id_voice = ((letter_index) * 5) + 2 + side_index;
   return id_voice;
   
