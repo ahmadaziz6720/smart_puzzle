@@ -98,6 +98,7 @@ void setup() {
 
 
 void loop() {
+  srand(time(0));
   // biru -> sisi A
   // hijau -> sisi B
   // kuning -> sisi C
