@@ -233,7 +233,7 @@ void updateGameLevel(){
         if(level >= 5) {
           level = 5;
         }
-        player.play(level+138);
+        player.play(level+139);
       }
       // Delay a little bit to avoid bouncing
       delay(50);
@@ -252,7 +252,7 @@ void updateGameLevel(){
         if(level <= 1){
           level = 1;
         }
-        player.play(level+138);
+        player.play(level+139);
       }
       // Delay a little bit to avoid bouncing
       delay(100);
