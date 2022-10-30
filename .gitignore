@@ -2,7 +2,6 @@
 test.c
 ~$*
 *.log
-ready_print/
 
 # Prerequisites
 *.d
