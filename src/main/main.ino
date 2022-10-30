@@ -4,7 +4,7 @@
 #include "warnaSisi.h"
 #include "Vector.h"
 #include "neotimer.h"
-
+#include <time.h>
 #define JUMLAH_SISI 5
 #define ch_MAX 26
 #define MUX_PINS 15
@@ -71,6 +71,8 @@ void setup() {
   }
   Serial.println(F("DFPlayer Mini online."));  
   player.volume(100);  //Set volume value. From 0 to 30
+  
+  srand(time(0));
 }
 
 // voice list
@@ -98,7 +100,6 @@ void setup() {
 
 
 void loop() {
-  srand(time(0));
   // biru -> sisi A
   // hijau -> sisi B
   // kuning -> sisi C
