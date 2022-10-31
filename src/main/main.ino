@@ -100,11 +100,11 @@ void setup() {
 
 
 void loop() {
-  // biru -> sisi A
-  // hijau -> sisi B
-  // kuning -> sisi C
-  // merah -> sisi D
-  // oranye -> sisi E
+  // kuning -> sisi A
+  // Orange -> sisi B
+  // hijau -> sisi C
+  // Merah -> sisi D
+  // Biru -> sisi E
   while(gameover){
     if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
@@ -123,6 +123,11 @@ void loop() {
 //    Serial.println("checking done rakit");
     if(isDoneRakit()){
       reset();
+      digitalWrite(pinCA, HIGH);
+      digitalWrite(pinCB, HIGH);
+      digitalWrite(pinCC, HIGH);
+      digitalWrite(pinCD, HIGH);
+      digitalWrite(pinCE, HIGH);
       player.play(KUBUS_TERBENTUK);
       int prevtime = millis();
       int currtime = millis();
@@ -183,12 +188,6 @@ void loop() {
     }
     nyalaSisi();
   }
-
-   
-  
-      
-  
-
 }
 
 void reset(){
