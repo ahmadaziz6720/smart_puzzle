@@ -139,9 +139,10 @@ void loop() {
 
   char side = pickRandSide();
   char letter = pickRandLetter();
-  
-  setupWarna(side, 'B', ' ');
-  
+
+  //setupWarna(side, 'B', ' ');
+  setupWarna(side, 'R', ' ');
+  setupWarna(side, 'G', ' ');
   nyalaSisi();
   player.play(voiceId(side, letter));
 
@@ -153,10 +154,10 @@ void loop() {
      
     
     if(!isWaitingForInput()){
-      removeWarna(side, 'B');
+//      removeWarna(side, 'B');
       checkSide(side, letter);
       if(!correct){
-        setupWarna(side, 'R', 'B');
+        setupWarna(side, 'R', 'G');
         nyalaSisi();
         for(int i =0;i<total_side_done-1;i++){
             setupWarna(side_done[i], 'G', ' ');
@@ -453,7 +454,13 @@ char pickRandLetter()
 
 
 int voiceId(char side, char letter){
-   char sides[] = {'C', 'E', 'B', 'D', 'A'};
+  
+  // Kuning -> sisi A
+  // Coklat -> sisi B
+  // Hijau -> sisi C
+  // Merah -> sisi D
+  // Biru -> sisi E
+   char sides[] = {'A', 'B', 'C', 'D', 'E'};
    char letters[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
    int side_index = 0;
    int letter_index = 0;
