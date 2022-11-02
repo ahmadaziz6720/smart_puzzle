@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "neotimer.h"
 #include <time.h>
+
 #define JUMLAH_SISI 5
 #define ch_MAX 26
 #define MUX_PINS 15
@@ -71,8 +72,7 @@ void setup() {
   }
   Serial.println(F("DFPlayer Mini online."));  
   player.volume(100);  //Set volume value. From 0 to 30
-  
-  srand(time(0));
+  randomSeed(analogRead(A6));
 }
 
 // voice list
@@ -100,11 +100,18 @@ void setup() {
 
 
 void loop() {
-  // biru -> sisi A
-  // hijau -> sisi B
-  // kuning -> sisi C
-  // merah -> sisi D
-  // oranye -> sisi E
+  // kuning -> sisi A
+  // Orange -> sisi B
+  // hijau -> sisi C
+  // Merah -> sisi D
+  // Biru -> sisi E
+
+  
+  // Biru -> sisi A
+  // Hijau -> sisi B
+  // Kuning -> sisi C
+  // Merah -> sisi D
+  // Orange -> sisi E
   while(gameover){
     if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
@@ -132,9 +139,10 @@ void loop() {
 
   char side = pickRandSide();
   char letter = pickRandLetter();
-  
-  setupWarna(side, 'B', ' ');
-  
+
+  //setupWarna(side, 'B', ' ');
+  setupWarna(side, 'R', ' ');
+  setupWarna(side, 'G', ' ');
   nyalaSisi();
   player.play(voiceId(side, letter));
 
@@ -146,10 +154,10 @@ void loop() {
      
     
     if(!isWaitingForInput()){
-      
+//      removeWarna(side, 'B');
       checkSide(side, letter);
       if(!correct){
-        setupWarna(side, 'R', 'B');
+        setupWarna(side, 'R', 'G');
         nyalaSisi();
         for(int i =0;i<total_side_done-1;i++){
             setupWarna(side_done[i], 'G', ' ');
@@ -162,7 +170,7 @@ void loop() {
           nyalaSisi();
           currtime = millis();
         }
-        
+        player.play(voiceId(side, letter));
       }
       else if(correct){
         Serial.println("Correct");
@@ -183,12 +191,6 @@ void loop() {
     }
     nyalaSisi();
   }
-
-   
-  
-      
-  
-
 }
 
 void reset(){
@@ -368,14 +370,14 @@ char pickRandSide(){
   char alpha[JUMLAH_SISI] = { 'A', 'B', 'C', 'D', 'E' };
                           
   char result;
-  result =  alpha[rand() % JUMLAH_SISI];
+  result =  alpha[random(0,5)];
   
   
   int i=0;
   while(i<JUMLAH_SISI){
   Serial.println(side_done[i]);
     if(result == side_done[i]){
-      result=alpha[rand() % JUMLAH_SISI];
+      result=alpha[random(0,5)];
       i=-1;
     }
     i++;
@@ -391,7 +393,7 @@ char pickRandSide(){
 }
 
 
-//char pickRandSide(){
+//char pick Side(){
 //  char alpha[JUMLAH_SISI] = {  'D', 'E' };
 //                          
 //  char result;
@@ -424,10 +426,10 @@ char pickRandLetter()
                           'v', 'w', 'x', 'y', 'z' };
     char result;
     if(level != 5){
-      result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+      result =  alpha[random(0,5)+ (level-1)*5];
     }
     else if(level == 5){
-      result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+      result =  alpha[random(0,6) + (level-1)*5];
     }
     
 
@@ -436,10 +438,10 @@ char pickRandLetter()
     while(i<ch_MAX){
       if(result == char_done[i]){
         if(level != 5){
-          result =  alpha[rand() % JUMLAH_SISI + (level-1)*5];
+          result =  alpha[random(0,5) + (level-1)*5];
         }
         else if(level == 5){
-          result =  alpha[rand() % (JUMLAH_SISI+1) + (level-1)*5];
+          result =  alpha[random(0,6) + (level-1)*5];
         }
         i=-1;
       }
@@ -452,6 +454,12 @@ char pickRandLetter()
 
 
 int voiceId(char side, char letter){
+  
+  // Kuning -> sisi A
+  // Coklat -> sisi B
+  // Hijau -> sisi C
+  // Merah -> sisi D
+  // Biru -> sisi E
    char sides[] = {'A', 'B', 'C', 'D', 'E'};
    char letters[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
    int side_index = 0;
