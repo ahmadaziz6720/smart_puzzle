@@ -112,6 +112,12 @@ void loop() {
   // Kuning -> sisi C
   // Merah -> sisi D
   // Orange -> sisi E
+
+  // Hijau c
+  // Coklat/orange b
+  // Merah d
+  // Kuning a
+  // Biru e
   while(gameover){
     if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
