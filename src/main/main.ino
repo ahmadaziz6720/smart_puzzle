@@ -112,13 +112,6 @@ void loop() {
   // Kuning -> sisi C
   // Merah -> sisi D
   // Orange -> sisi E
-
-// Hijau c
-// Coklat/orange b
-// Merah d
-// Kuning a
-// Biru e
-
   while(gameover){
     if(total_side_done == JUMLAH_SISI){
       player.play(SELAMAT);
@@ -280,52 +273,26 @@ bool isDoneRakit(){
 
 
 bool isWaitingForInput(char side){
-  switch (side) {
-    case 'A':
-      for(int i=0;i<=4;i++){
-        if(mux1.read(i) != 0){
-          return false;
-        }
-      }
-      break;
-
-    case 'B':
-      for(int i=5;i<=9;i++){
-        if(mux1.read(i) != 0){
-          return false;
-        }
-      }
-      break;
-
-    case 'C': 
-      for(int i=10;i<=14;i++){
-        if(mux1.read(i) != 0){
-          return false;
-        }
-      }
-      break;
-
-    case 'D': 
-      for(int i=0;i<=4;i++){
-        if(mux2.read(i) != 0){
-          return false;
-        }
-      }
-      break;
-
-    case 'E': 
-      for(int i=5;i<=9;i++){
-        if(mux2.read(i) != 0){
-          return false;
-        }
-      }
-      break;
-
-    default:
-      return true;
-      break;
+  int i = 0;
+  // check the correct side
+  if(readsisi.getCharacter(side) == ' '){
+    return false;
+  }
+  for(i=0;i<MUX_PINS;i++){
+    if(mux1.read(i) != 0){
+      return false;
     }
   }
+
+
+  for(i=0;i<9;i++){
+    if(mux2.read(i) != 0){
+      return false;
+    }
+  }
+
+  return true;
+}
 
 
 void printDetail(uint8_t type, int value){
