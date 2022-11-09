@@ -321,9 +321,7 @@ bool isWaitingForInput(char side){
       }
       break;
 
-    default:
       return true;
-      break;
     }
   }
 
